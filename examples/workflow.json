@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "name": "Orders",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {}
+    },
+    {
+      "name": "Invoice",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "amount": "={{ $json.total }}",
+        "customer": "={{ $json.customer.name }}"
+      }
+    },
+    {
+      "name": "Alert",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "amount": "={{ $('Orders').item.json.total }}"
+      }
+    },
+    {
+      "name": "Warehouse",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "id": "={{ $json.id }}"
+      }
+    }
+  ],
+  "connections": {
+    "Orders": {
+      "main": [
+        [
+          {
+            "node": "Invoice",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Warehouse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

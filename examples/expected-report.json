@@ -1,0 +1,52 @@
+{
+  "version": "0.7",
+  "cases": [
+    {
+      "id": "orders-change",
+      "source": "Orders",
+      "risks": 3,
+      "unknown": 0,
+      "affectedConsumers": 2,
+      "references": [
+        {
+          "consumer": "Invoice",
+          "producer": "Orders",
+          "path": "/customer/name",
+          "status": "MISSING_IN_SAMPLE",
+          "oldType": "string",
+          "newType": null
+        },
+        {
+          "consumer": "Invoice",
+          "producer": "Orders",
+          "path": "/total",
+          "status": "TYPE_CHANGED",
+          "oldType": "number",
+          "newType": "string"
+        },
+        {
+          "consumer": "Alert",
+          "producer": "Orders",
+          "path": "/total",
+          "status": "TYPE_CHANGED",
+          "oldType": "number",
+          "newType": "string"
+        },
+        {
+          "consumer": "Warehouse",
+          "producer": "Orders",
+          "path": "/id",
+          "status": "UNCHANGED_SAMPLE",
+          "oldType": "number",
+          "newType": "number"
+        }
+      ],
+      "warnings": [],
+      "state": "RISK"
+    }
+  ],
+  "risks": 3,
+  "inconclusive": 0,
+  "state": "RISK",
+  "notice": "Static sample comparison only; does not establish runtime safety. Reports contain node names and field paths."
+}
